@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be My Valentine? 💕</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --rose: #e8a0a8;
+      --rose-deep: #c75b6f;
+      --blush: #f8e1e4;
+      --gold: #d4a574;
+      --cream: #fff9f5;
+      --text-dark: #4a3c3a;
+    }
+
+    body {
+      min-height: 100vh;
+      overflow-x: hidden;
+      font-family: 'Quicksand', sans-serif;
+      background: linear-gradient(165deg, #fff5f7 0%, #ffe8ec 30%, #ffd6e0 60%, #ffc4d0 100%);
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+    }
+
+    /* Floating hearts background */
+    .hearts-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .heart-float {
+      position: absolute;
+      font-size: 1.5rem;
+      opacity: 0.15;
+      animation: float 6s ease-in-out infinite;
+    }
+
+    .heart-float:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+    .heart-float:nth-child(2) { left: 85%; top: 15%; animation-delay: 1s; }
+    .heart-float:nth-child(3) { left: 25%; top: 70%; animation-delay: 2s; }
+    .heart-float:nth-child(4) { left: 75%; top: 65%; animation-delay: 0.5s; }
+    .heart-float:nth-child(5) { left: 50%; top: 10%; animation-delay: 3s; }
+    .heart-float:nth-child(6) { left: 15%; top: 50%; animation-delay: 1.5s; }
+    .heart-float:nth-child(7) { left: 90%; top: 40%; animation-delay: 2.5s; }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0) scale(1); }
+      50% { transform: translateY(-15px) scale(1.1); }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      text-align: center;
+      max-width: 520px;
+    }
+
+    /* Decorative frame */
+    .frame {
+      background: linear-gradient(145deg, rgba(255,255,255,0.9) 0%, rgba(255,248,250,0.95) 100%);
+      border-radius: 24px;
+      padding: 3rem 2.5rem;
+      box-shadow: 0 20px 60px rgba(199, 91, 111, 0.2),
+                  0 0 0 1px rgba(255,255,255,0.8);
+    }
+
+    .rose-top {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 1.5rem;
+      background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23c75b6f'%3E%3Cpath d='M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z'/%3E%3C/svg%3E") center/contain no-repeat;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.08); opacity: 0.9; }
+    }
+
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(1.8rem, 5vw, 2.4rem);
+      font-weight: 600;
+      color: var(--rose-deep);
+      margin-bottom: 0.5rem;
+      line-height: 1.3;
+    }
+
+    .sub {
+      font-size: 1rem;
+      color: var(--rose);
+      margin-bottom: 2.5rem;
+      font-style: italic;
+    }
+
+    .buttons-wrap {
+      display: flex;
+      gap: 1.5rem;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      min-height: 80px;
+    }
+
+    .btn {
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      padding: 1rem 2.2rem;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, var(--rose-deep), var(--rose));
+      color: white;
+      box-shadow: 0 8px 24px rgba(199, 91, 111, 0.4);
+    }
+
+    .btn-yes:hover {
+      transform: scale(1.08);
+      box-shadow: 0 12px 32px rgba(199, 91, 111, 0.5);
+    }
+
+    .btn-yes:active {
+      transform: scale(0.98);
+    }
+
+    .btn-no {
+      background: linear-gradient(135deg, #f0e6e8, #e8d8db);
+      color: var(--text-dark);
+      position: fixed;
+      z-index: 5;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .btn-no:hover {
+      transform: scale(1.02);
+    }
+
+    /* Success overlay */
+    .success-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(255, 245, 247, 0.98);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .success-overlay.show {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .success-content {
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .success-heart {
+      font-size: 5rem;
+      margin-bottom: 1rem;
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+
+    .success-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem;
+      color: var(--rose-deep);
+      margin-bottom: 0.5rem;
+    }
+
+    .success-content p {
+      color: var(--rose);
+      font-size: 1.1rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .frame { padding: 2rem 1.5rem; }
+      .buttons-wrap { min-height: 140px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts-bg">
+    <span class="heart-float">❤️</span>
+    <span class="heart-float">💕</span>
+    <span class="heart-float">💗</span>
+    <span class="heart-float">❤️</span>
+    <span class="heart-float">💕</span>
+    <span class="heart-float">💗</span>
+    <span class="heart-float">❤️</span>
+  </div>
+
+  <div class="container">
+    <div class="frame">
+      <div class="rose-top" aria-hidden="true"></div>
+      <h1>Will you be my Valentine?</h1>
+      <p class="sub">I'd be so lucky if you said yes</p>
+
+      <div class="buttons-wrap">
+        <button type="button" class="btn btn-yes" id="btnYes">Yes 💝</button>
+      </div>
+    </div>
+  </div>
+
+  <button type="button" class="btn btn-no" id="btnNo">No</button>
+
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-content">
+      <div class="success-heart">💕</div>
+      <h2>You made my day!</h2>
+      <p>I can't wait to celebrate with you. Happy Valentine's Day!</p>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      const btnNo = document.getElementById('btnNo');
+      const btnYes = document.getElementById('btnYes');
+      const successOverlay = document.getElementById('successOverlay');
+
+      const padding = 24;
+      let btnWidth = 0;
+      let btnHeight = 0;
+
+      function measureButton() {
+        const rect = btnNo.getBoundingClientRect();
+        btnWidth = rect.width;
+        btnHeight = rect.height;
+      }
+
+      function randomPosition() {
+        measureButton();
+        const maxX = window.innerWidth - btnWidth - padding;
+        const maxY = window.innerHeight - btnHeight - padding;
+        const x = padding + Math.random() * Math.max(0, maxX);
+        const y = padding + Math.random() * Math.max(0, maxY);
+        return { x, y };
+      }
+
+      function applyPosition(x, y) {
+        btnNo.style.left = x + 'px';
+        btnNo.style.top = y + 'px';
+      }
+
+      // Initial position for No button (somewhere on the page)
+      let pos = randomPosition();
+      applyPosition(pos.x, pos.y);
+
+      function moveNoButton() {
+        pos = randomPosition();
+        applyPosition(pos.x, pos.y);
+      }
+
+      // When mouse gets close to No button anywhere on the page, move it
+      document.addEventListener('mousemove', function (e) {
+        const noRect = btnNo.getBoundingClientRect();
+        const mouseX = e.clientX;
+        const mouseY = e.clientY;
+        const noCenterX = noRect.left + noRect.width / 2;
+        const noCenterY = noRect.top + noRect.height / 2;
+        const distance = Math.hypot(mouseX - noCenterX, mouseY - noCenterY);
+        const threshold = 100;
+        if (distance < threshold) {
+          moveNoButton();
+        }
+      });
+
+      btnNo.addEventListener('mouseenter', moveNoButton);
+      btnNo.addEventListener('click', function (e) {
+        e.preventDefault();
+        moveNoButton();
+      });
+
+      window.addEventListener('resize', function () {
+        const noRect = btnNo.getBoundingClientRect();
+        if (noRect.right > window.innerWidth - padding || noRect.bottom > window.innerHeight - padding) {
+          moveNoButton();
+        }
+      });
+
+      btnYes.addEventListener('click', function () {
+        successOverlay.classList.add('show');
+      });
+    })();
+  </script>
+</body>
+</html>
